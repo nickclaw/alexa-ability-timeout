@@ -33,15 +33,17 @@ export function createTimeoutMiddleware(time) {
         }, time);
 
         // be ready to cancel the timeout
-        const onSent = () => {
+        function clearTimeoutWrapper() {
             if (!req.timedOut) log('request finished on time');
             clearTimeout(timeout);
-        };
-        req.on('finished', onSent);
-        req.on('failed', onSent);
+        }
 
-        log('setup timer');
+        req.on('finished', clearTimeoutWrapper);
+        req.on('failed', clearTimeoutWrapper);
         req.timedOut = false;
+        req.clearTimeout = clearTimeoutWrapper;
+
+        log('timer setup');
         next();
     };
 }

@@ -32,6 +32,25 @@ describe('middleware behavior', function() {
         app.handle(intentRequest);
     });
 
+    it('should set "req.clearTimeout" on the request', function(done) {
+        app.use(createTimeoutMiddleware(500));
+        app.use(function(req) {
+            expect(req.clearTimeout).to.be.instanceOf(Function);
+            done();
+        });
+        app.handle(intentRequest);
+    });
+
+    it('using "req.clearTimeout()" should clear the timeout', function(done) {
+        app.use(createTimeoutMiddleware(500));
+        app.use(function(req, next) {
+            req.clearTimeout();
+            setTimeout(next, 1000);
+        });
+        app.on('GetZodiacHoroscopeIntent', req => req.end());
+        app.handle(intentRequest, done);
+    });
+
     it('should emit a "timeout" event when timed out', function(done) {
         const spy = sinon.spy();
         app.use(createTimeoutMiddleware(500));

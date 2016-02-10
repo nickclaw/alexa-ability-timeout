@@ -49,3 +49,9 @@ export const handler = handleAbility(app);
 ##### `timeout(ms) -> middleware`
 Creates a middleware function that times out the request after
 the given `ms` have passed.
+
+##### `req.clearTimeout()`
+A function to stop the timeout completely.
+
+##### `req.timedOut`
+A boolean indicating whether the request has timed out.
