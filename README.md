@@ -1,4 +1,4 @@
-# alexa-ability-timeout
+# alexa-ability-timeout [![Build Status](https://travis-ci.org/nickclaw/alexa-ability-timeout.svg?branch=master)](https://travis-ci.org/nickclaw/alexa-ability-timeout)
 
 ### Example
 
