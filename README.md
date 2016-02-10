@@ -14,24 +14,20 @@ const app = new Ability({
 app.use(timeout(5000)); // 5 seconds
 
 // slow, cancelable operation.
-// Listen for the custom `timeout` event the middleware
-// emits and cancel the request appropriately
+// Listen for the `timeout` event on the request and cancel the request appropriately
 app.on(e.launch, function(req, next) {
-    const cancel = slowCancelableOperation(function(err, output) {
-        if (err) return next(err);  // pass along error if we can't handle it
-        req.say(output).end();      // otherwise send output
+    const cancel = slowCancelableOperation(function(output) {
+        req.say(output).end();  // send output
     });
 
     req.on('timeout', cancel);
 });
 
 // slow, operation that we can't cancel.
-// in this case just check the `req.timedOut` property
-// to see if it is safe to continue
+// just check the `req.timedOut` property to see if it is safe to continue
 app.on(e.end, function(req, next) {
-    slowOperation(function(err, output) {
+    slowOperation(function(output) {
         if (req.timedOut) return;  // halt if timed out
-        if (err) return next(err); // or pass along error if we can't handle it
         req.say(output).end();     // otherwise send output
     });
 });
@@ -47,3 +43,9 @@ app.onError(function(err, req, next) {
 export const handler = handleAbility(app);
 
 ```
+
+### API
+
+##### `timeout(ms) -> middleware`
+Creates a middleware function that times out the request after
+the given `ms` have passed.

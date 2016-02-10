@@ -31,10 +31,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "debug": "^2.2.0",
-    "lodash": "^4.0.1"
+    "debug": "^2.2.0"
   },
   "devDependencies": {
+    "alexa-ability": "^0.8.0",
     "babel": "^6.3.26",
     "babel-cli": "^6.4.5",
     "babel-eslint": "^4.1.8",
