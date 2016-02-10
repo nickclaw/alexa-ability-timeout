@@ -1,7 +1,7 @@
 {
   "name": "alexa-ability-timeout",
   "version": "0.1.0",
-  "description": "",
+  "description": "An alexa-ability middleware to prevent stalled requests.",
   "main": "lib/index.js",
   "scripts": {
     "test": "./scripts/test.sh"
