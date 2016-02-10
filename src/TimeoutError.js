@@ -6,7 +6,8 @@ function extendableBuiltin(cls) {
         cls.apply(this, arguments);
     }
     ExtendableBuiltin.prototype = Object.create(cls.prototype);
-    Object.setPrototypeOf(ExtendableBuiltin, cls);
+    // node .10 doesn't support Object.setPrototypeOf
+    ExtendableBuiltin.__proto__ = cls; // eslint-disable-line no-proto
 
     return ExtendableBuiltin;
 }
