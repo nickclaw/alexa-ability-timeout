@@ -69,7 +69,7 @@ describe('middleware behavior', function() {
         app.on('GetZodiacHoroscopeIntent', function(req) {
             setTimeout(() => req.timedOut || req.end(), 1000);
         });
-        app.onError(function(err) {
+        app.use(function(err, req, next) {
             expect(err).to.be.instanceOf(TimeoutError);
             done();
         });

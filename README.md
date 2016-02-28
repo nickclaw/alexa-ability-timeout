@@ -32,7 +32,8 @@ app.on(e.end, function(req, next) {
     });
 });
 
-app.onError(function(err, req, next) {
+// catch errors
+app.use(function(err, req, next) {
     if (err instanceof TimeoutError) {
         req.say('Sorry, that took to long. Please try again.').send();
     } else {
